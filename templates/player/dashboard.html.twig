@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Joueur{% endblock %}
+
+{% block body %}
+<div style="margin: 40px;">
+    <h1>Bienvenue {{ user.email }}</h1>
+
+    <hr>
+
+    <h2>Ton équipe :</h2>
+    {% if user.player and user.player.team %}
+        <p><strong>Nom :</strong> {{ app.user.player.team.name }}</p>
+        <p><strong>Coach :</strong> {{ user.player.team.coach }}</p>
+        <p><strong>Compétition :</strong> {{ user.player.team.competition }}</p>
+    {% else %}
+        <p>Aucune équipe pour le moment.</p>
+    {% endif %}
+
+    <hr>
+
+    {% if user.player %}
+        <h2>Stats personnelles :</h2>
+        <p><strong>Rôle :</strong> {{ user.player.role }}</p>
+        <p><strong>Winrate :</strong> {{ user.player.winrate }} %</p>
+        <p><strong>KDA :</strong> {{ user.player.kda }}</p>
+        <p><strong>Victoires :</strong> {{ user.player.wins }}</p>
+        <p><strong>Défaites :</strong> {{ user.player.losses }}</p>
+    {% else %}
+        <p>Aucune donnée disponible.</p>
+    {% endif %}
+</div>
+{% endblock %}
