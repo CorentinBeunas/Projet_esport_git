@@ -20,16 +20,16 @@ class PlayerCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('user')
-                ->setFormTypeOptions([
-                    'choice_label' => 'email',
-                ])
-                ->setRequired(true),
-
+            //AssociationField::new('user')
+                //->setFormTypeOptions([
+                    //'choice_label' => 'email',
+                //])
+                //->setRequired(true),
+            TextField::new('user', 'email'),
 	    TextField::new('name', 'NOM DU JOUEUR'),
-            //TextField::new('role'),
-            //TextField::new('champions'),
-            //IntegerField::new('wins'),
+            TextField::new('role'),
+            TextField::new('champions'),
+            IntegerField::new('wins'),
             IntegerField::new('losses'),
             NumberField::new('winrate', 'Winrate (%)'),
             NumberField::new('kda', 'KDA moyen'),         

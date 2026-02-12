@@ -24,7 +24,7 @@ public function configureFields(string $pageName): iterable
         IntegerField::new('taille_equipe', 'Taille de l’équipe'),
 
         // Nouveau : infos membres
-        TextField::new('membres', 'Membres')->hideOnIndex(), // pour plus tard
+        TextField::new('membres', 'Membres')->hideOnIndex(),
         UrlField::new('membresLink', 'Voir Membres')->onlyOnIndex(),
 
         // Compétition
