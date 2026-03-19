@@ -33,6 +33,9 @@ class Esport
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $competition = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $jeu = null;
+
     // Palmarès de l’équipe
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $palmares = null;
@@ -51,7 +54,15 @@ class Esport
 
 
     // ------------------- GETTERS & SETTERS -------------------
-
+    public function getJeu(): ?string
+    {
+        return $this->jeu;
+    }
+    public function setJeu(?string $jeu): static
+    {
+        $this->jeu = $jeu;
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
