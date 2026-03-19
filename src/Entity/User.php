@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\Player;
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,6 +24,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Player $player = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,7 +40,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -46,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    /** @deprecated use getUserIdentifier() */
+    /** @deprecated */
     public function getUsername(): string
     {
         return (string) $this->email;
@@ -56,7 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
 
-        // ROLE_USER est ajouté automatiquement
         if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
         }
@@ -67,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -79,26 +79,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
     }
 
     public function eraseCredentials(): void
     {
-        
     }
-	#[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-	private ?Player $player = null;
 
-	public function getPlayer(): ?Player
-	{
-    	return $this->player;
-	}
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
 
-	public function setPlayer(?Player $player): self
-	{
-   	 $this->player = $player;
+    public function setPlayer(?Player $player): self
+    {
+        if ($player !== null && $player->getUser() !== $this) {
+            $player->setUser($this);
+        }
 
-   	 return $this;
-	}
+        $this->player = $player;
+
+        return $this;
+    }
+    public function __toString(): string
+{
+    return $this->email ?? '';
+}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DashboardController.Php;
+namespace DashboardController;
 
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -9,7 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
-class projet esportController extends AbstractDashboardController
+class esportController extends AbstractDashboardController
 {
     public function index(): Response
     {

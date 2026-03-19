@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Admin;
+use App\Entity\Coach;
 use App\Entity\User;
 use App\Entity\Esport;
 use App\Entity\Player;

@@ -1,38 +1,132 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
+<style>
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
 
+/* centre la box */
+.login-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+/* boite de connexion */
+.login-box{
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    width:360px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+    text-align:center;
+}
 
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
+/* titre */
+.login-box h1{
+    margin-bottom:30px;
+}
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+/* labels */
+.login-box label{
+    display:block;
+    text-align:left;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+/* champs */
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+    transition:0.2s;
+}
+
+/* focus champ */
+.login-box input:focus{
+    border-color:#3498db;
+    outline:none;
+    box-shadow:0 0 5px rgba(52,152,219,0.5);
+}
+
+/* bouton */
+.login-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#3498db;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+/* hover bouton */
+.login-btn:hover{
+    background:#2980b9;
+    transform:scale(1.03);
+}
+
+/* erreur */
+.alert{
+    background:#e74c3c;
+    color:white;
+    padding:10px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+</style>
+
+<div class="login-container">
+
+<div class="login-box">
+
+<h1>Connexion Esport</h1>
+
+{% if error %}
+<div class="alert">
+Identifiants incorrects
+</div>
+{% endif %}
+
+<form method="post">
+
+<label for="username">Email</label>
+<input type="email"
+       value="{{ last_username }}"
+       name="_username"
+       id="username"
+       required
+       autofocus>
+
+<label for="password">Mot de passe</label>
+<input type="password"
+       name="_password"
+       id="password"
+       required>
+
+<button class="login-btn" type="submit">
+Se connecter
+</button>
+
+</form>
+
+</div>
+</div>
+
 {% endblock %}
